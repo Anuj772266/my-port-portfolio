@@ -719,7 +719,30 @@
                           send message
                         </button>
                       </div>
-                      <span
+                      <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                        <div id="successToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                          <div class="toast-header">
+                            <strong class="me-auto">Success</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                          </div>
+                          <div class="toast-body">
+                            Your message was successfully sent!
+                          </div>
+                        </div>
+                      
+                        <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
+                          <div class="toast-header">
+                            <strong class="me-auto text-danger">Error</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                          </div>
+                          <div class="toast-body">
+                            Please fill out all required fields correctly.
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+                      <!-- <span
                         id="suce_message"
                         class="text-success"
                         style="display: none"
@@ -730,7 +753,7 @@
                         class="text-danger"
                         style="display: none"
                         >Message Sending Failed</span
-                      >
+                      > -->
                     </div>
                   </div>
                 </form>
@@ -849,7 +872,7 @@
               required: true,
             },
           },
-
+    
           messages: {
             name: {
               required: "Please enter the name.",
@@ -876,11 +899,11 @@
             $(element).removeClass("is-invalid").addClass("is-valid");
           },
         });
-
+    
         (function () {
           emailjs.init("CVy4ftvoXM65uL1mO");
         })();
-
+    
         $(document).on("submit", "#contactUsForm", function (e) {
           e.preventDefault();
           var form = $(this);
@@ -888,7 +911,7 @@
             var formData = form.serialize();
             console.log("Form is valid. Submitting...");
             console.log("Form Data:", formData);
-
+    
             var serviceID = "service_jsif5ay";
             var templateID = "template_eef5up9";
             var templateParams = {
@@ -900,6 +923,10 @@
             emailjs.send(serviceID, templateID, templateParams).then(
               function (response) {
                 console.log("SUCCESS!", response.status, response.text);
+                form[0].reset(); // Reset the form
+                $(".is-valid").removeClass("is-valid"); // Remove validation classes
+                var toast = new bootstrap.Toast($("#successToast")); // Initialize success toast
+                toast.show(); // Show success toast
               },
               function (error) {
                 console.log("FAILED...", error);
@@ -907,10 +934,13 @@
             );
           } else {
             console.log("Form is not valid.");
+            var errorToast = new bootstrap.Toast($("#errorToast")); // Initialize error toast
+            errorToast.show(); // Show error toast
           }
         });
       });
     </script>
+    
     <!-- end body -->
   </body>
 </html>
