@@ -13,6 +13,9 @@
     <meta name="description" content="Tony - Portfolio Template" />
     <!-- title -->
     <title>ANUJ Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
     <!-- plugin CSS -->
@@ -742,7 +745,7 @@
                       </div>
                       
                       
-                      <span
+                      <!-- <span
                         id="suce_message"
                         class="text-success"
                         style="display: none"
@@ -753,7 +756,7 @@
                         class="text-danger"
                         style="display: none"
                         >Message Sending Failed</span
-                      >
+                      > -->
                     </div>
                   </div>
                 </form>
@@ -872,7 +875,7 @@
               required: true,
             },
           },
-
+    
           messages: {
             name: {
               required: "Please enter the name.",
@@ -899,11 +902,11 @@
             $(element).removeClass("is-invalid").addClass("is-valid");
           },
         });
-
+    
         (function () {
           emailjs.init("CVy4ftvoXM65uL1mO");
         })();
-
+    
         $(document).on("submit", "#contactUsForm", function (e) {
           e.preventDefault();
           var form = $(this);
@@ -911,7 +914,7 @@
             var formData = form.serialize();
             console.log("Form is valid. Submitting...");
             console.log("Form Data:", formData);
-
+    
             var serviceID = "service_jsif5ay";
             var templateID = "template_eef5up9";
             var templateParams = {
@@ -923,6 +926,11 @@
             emailjs.send(serviceID, templateID, templateParams).then(
               function (response) {
                 console.log("SUCCESS!", response.status, response.text);
+                form[0].reset(); // Reset the form
+                $(".is-valid").removeClass("is-valid"); // Remove validation classes
+                // var toast = new bootstrap.Toast($("#successToast")); // Initialize success toast
+                // toast.show(); // Show success toast
+                alert("Your message was successfully sent!");
               },
               function (error) {
                 console.log("FAILED...", error);
@@ -930,10 +938,13 @@
             );
           } else {
             console.log("Form is not valid.");
+          //   var errorToast = new bootstrap.Toast($("#errorToast")); // Initialize error toast
+          //   errorToast.show(); // Show error toast
           }
         });
       });
     </script>
+    
     <!-- end body -->
   </body>
 </html>
