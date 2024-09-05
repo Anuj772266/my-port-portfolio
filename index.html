@@ -928,7 +928,9 @@
                 console.log("SUCCESS!", response.status, response.text);
                 form[0].reset(); // Reset the form
                 $(".is-valid").removeClass("is-valid"); // Remove validation classes
-                var toast = new bootstrap.Toast($("#successToast")); // Initialize success toast
+                var toastE = document.getElementById('successToast')
+                var toast = new bootstrap.Toast($(toastE)); // Initialize success toast
+                console.log('Displaying success toast');
                 toast.show(); // Show success toast
               },
               function (error) {
